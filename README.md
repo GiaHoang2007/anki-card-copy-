@@ -1,5 +1,5 @@
 # anki-card-copy-
-# Anki Card Generator
+# Anki Card Generator (for Vietnamese)
 
 An automated tool built with Python and Google Gemini API that automatically generates detailed flashcards for Anki from a simple vocabulary list.
 
