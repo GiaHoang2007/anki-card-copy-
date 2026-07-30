@@ -1,22 +1,26 @@
-# anki-card-copy-
+# anki-card
 # Anki Card Generator (for Vietnamese)
 
 An automated tool built with Python and Google Gemini API that automatically generates detailed flashcards for Anki from a simple vocabulary list.
 
-## Features
+# Features
 
-- **Automated Card Generation:** Processes raw vocabulary from `vocab.txt` and generates structured flashcard data including reading, part of speech, meanings, mnemonics, and example sentences.
-- **Duplicate Prevention:** Checks existing records in `anki_cards.csv` to avoid re-processing previously generated words.
-- **Robust Error Handling:** Features built-in retry mechanisms for API calls and clear structured logging.
-- **CI/CD Integration:** Configured with GitHub Actions to automatically process new vocabulary and keep the card database updated.
+-Automated Card Generation:** Processes raw vocabulary from `vocab.txt` and generates structured flashcard data including reading, part of speech, meanings, mnemonics, and example sentences.
 
-## Tech Stack
+-Duplicate Prevention:** Checks existing records in `anki_cards.csv` to avoid re-processing previously generated words.
 
-- **Language:** Python 3.x
-- **AI Integration:** Google Gemini API (`google-genai` SDK)
-- **Automation:** GitHub Actions
+-Robust Error Handling:** Features built-in retry mechanisms for API calls and clear structured logging.
 
-## Quick Start
+-CI/CD Integration:** Configured with GitHub Actions to automatically process new vocabulary and keep the card database updated.
+
+# Tech Stack
+-Language:** Python 3.x
+
+-AI Integration:** Google Gemini API (`google-genai` SDK)
+
+-Automation:** GitHub Actions
+
+# Quick Start
 
 ### 1. Prerequisites
 
