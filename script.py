@@ -52,7 +52,7 @@ def get_existing_words(csv_path: str) -> Set[str]:
 
 def build_gemini_prompt(words: List[str]) -> str:
     words_str = "\n".join(words)
-    return f"""You are a linguistic expert. Please analyze the following list of Japanese words/phrases:
+    return f"""You are a Japanese linguistic expert. Please analyze the following list of Japanese words/phrases:
 {words_str}
 
 Return a JSON array where each object represents a word with the following schema:
@@ -60,7 +60,7 @@ Return a JSON array where each object represents a word with the following schem
 - "reading": Furigana / Reading / Romaji of the original word
 - "pos": Part of speech
 - "meaning": Concise Vietnamese translation of the original word
-- "mnemonic": Short mnemonic memory aid in Vietnamese
+- "mnemonic": Detailed Sino-Vietnamese (Hán Việt) breakdown and Kanji meanings. (e.g. "ĐỒ (bản đồ) + THƯ (sách) + QUÁN (tòa nhà) = Tòa nhà lưu trữ sách vở, bản đồ")
 - "example": Sample sentence in Japanese
 - "example_reading": Furigana / Reading / Romaji of the example sentence
 - "example_vn": Vietnamese translation of the example sentence"""
