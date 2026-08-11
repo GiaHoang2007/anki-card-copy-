@@ -56,16 +56,19 @@ def build_gemini_prompt(words: List[str]) -> str:
 {words_str}
 
 Return a JSON array where each object represents a word with the following schema:
-- "word": original Japanese word
-- "reading": Furigana / Reading / Romaji of the original word
-- "pos": Part of speech
+- "word": original Japanese word (MUST use Kanji whenever applicable, e.g. use "誰" instead of "だれ", "何" instead of "なに")
+- "reading": Furigana / Reading / Romaji of the original word (e.g. "まいあさ (maiasa)")
+- "pos": Part of speech IN VIETNAMESE (e.g. use "Trợ từ", "Động từ", "Danh từ", "Tính từ", "Cụm từ" instead of Japanese or English terms)
 - "meaning": Concise Vietnamese translation of the original word
-- "mnemonic": Detailed Sino-Vietnamese (Hán Việt) breakdown and Kanji meanings. (e.g. "ĐỒ (bản đồ) + THƯ (sách) + QUÁN (tòa nhà) = Tòa nhà lưu trữ sách vở, bản đồ")
-- "example": Sample sentence in Japanese
-- "example_reading": Furigana / Reading / Romaji of the example sentence
+- "mnemonic": Breakdown of EACH Kanji character in the exact format:
+  "Kanji (Hiragana reading) - HÁN VIỆT: Meaning".
+  Separate multiple Kanji characters with " + ".
+  DO NOT add prefixes like "Hán tự" or extra word repetitions. DO NOT use double quotes inside string values.
+- "example": Sample sentence in Japanese WITH Romaji appended in parentheses right after the sentence.
+  Example: "毎朝コーヒーを飲みます。 (Maiasa kōhī wo nomimasu.)"
+- "example_reading": Japanese reading of the example sentence using standard Hiragana for native words, but KEEP KATAKANA FOR LOANWORDS (Katakana words like コーヒー, デパート, ニューヨーク must remain in Katakana).
+  Example: "まいあさ コーヒー を のみます。"
 - "example_vn": Vietnamese translation of the example sentence"""
-
-
 def parse_and_format_cards(raw_json: str) -> List[List[str]]:
     cards_data: List[Dict[str, Any]] = json.loads(raw_json)
     formatted_cards = []
@@ -90,7 +93,8 @@ def append_to_csv(csv_path: str, new_cards: List[List[str]]) -> None:
     is_empty = not file_exists or os.path.getsize(csv_path) == 0
 
     with open(csv_path, 'a', encoding='utf-8', newline='') as f:
-        writer = csv.writer(f)
+        # Bắt buộc bọc tất cả các ô trong ngoặc kép để tránh vỡ cột CSV
+        writer = csv.writer(f, quoting=csv.QUOTE_ALL)
         if is_empty:
             writer.writerow(CSV_HEADER)
         writer.writerows(new_cards)
